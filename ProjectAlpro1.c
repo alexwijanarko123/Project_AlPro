@@ -5,13 +5,13 @@ void cipher(char *inp, int pjg){
 	int i;
 	for (i = 0; i < pjg; i++){
 		if (inp[i] > 64 && inp[i] < 91){
-			inp[i] = ((inp[i] - 'A' - 3) % 26) + 'A';
+			inp[i] = ((inp[i] - 'A' + 3) % 26) + 'A';
 			if (inp[i] <= 64){
 				inp[i] += 26;
 			}
 		}
 		else if (inp[i] > 96 && inp[i] < 123){
-			inp[i] = ((inp[i] - 'a' - 3) % 26) + 'a';
+			inp[i] = ((inp[i] - 'a' + 3) % 26) + 'a';
 			if (inp[i] <= 96){
 				inp[i] += 26;
 			}
