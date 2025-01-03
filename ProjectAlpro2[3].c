@@ -27,6 +27,7 @@ struct Item menu[MAXI];
 struct Order orders[MAXO];
 int menuCount = 0;
 int orderCount = 0;
+int tot = 0;
 
 // Function untuk login
 int loginAsAdmin(){
@@ -139,8 +140,7 @@ void deleteMenu(){
 
 // Function untuk mengorder makanan atau minuman
 void order(){
-	int i, tot;
-	tot = 0;
+	int i;
 	char x[2];
     if (menuCount == 0){
         printf("Tidak ada menu!\n");
@@ -165,7 +165,7 @@ void order(){
         if (menu[i].id == newOrder.itemID){
             if (menu[i].stock >= newOrder.quantity){
                 newOrder.totalPrice = menu[i].price * newOrder.quantity;
-		tot += newOrder.totalPrice;
+				tot += newOrder.totalPrice;
                 menu[i].stock -= newOrder.quantity;
                 orders[orderCount++] = newOrder;
                 printf("Apakah Anda ingin memesan lagi (Y/T) : ");
@@ -386,6 +386,7 @@ int main(){
     loadMenu();
     loadOrders();
     isAdmin = loginAsAdmin();
+    system("cls");
 	// Looping selama user belum memilih keluar
     while(1){
         printf("Selamat datang\n");
@@ -408,6 +409,7 @@ int main(){
         }
         printf("Masukkan pilihanmu: ");
         scanf("%d", &choice);
+        system("cls");
 		// Condition untuk setiap pilihan
         switch (choice){
             case 1: // Menampilkan menu
