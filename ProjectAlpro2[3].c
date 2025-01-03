@@ -117,7 +117,7 @@ void editMenu(){
 
 // Function untuk menghapus menu yang ada 
 void deleteMenu(){
-	int i, j;
+    int i, j;
     int id, found = 0; // Variabel found sebagai penanda apakah menu ditemukan atau tidak
     printf("Masukkan ID menu yang ingin dihapus: ");
     scanf("%d", &id); //ID menu yang ingin dihapus
@@ -139,7 +139,8 @@ void deleteMenu(){
 
 // Function untuk mengorder makanan atau minuman
 void order(){
-	int i;
+	int i, tot;
+	tot = 0;
 	char x[2];
     if (menuCount == 0){
         printf("Tidak ada menu!\n");
@@ -163,7 +164,8 @@ void order(){
     for (i = 0; i < menuCount; i++){
         if (menu[i].id == newOrder.itemID){
             if (menu[i].stock >= newOrder.quantity){
-                newOrder.totalPrice += menu[i].price * newOrder.quantity;
+                newOrder.totalPrice = menu[i].price * newOrder.quantity;
+		tot += newOrder.totalPrice;
                 menu[i].stock -= newOrder.quantity;
                 orders[orderCount++] = newOrder;
                 printf("Apakah Anda ingin memesan lagi (Y/T) : ");
@@ -171,7 +173,7 @@ void order(){
                 if (strcmp(x, "Y") == 0){
                 	goto rep;
 				}
-                printf("Pemesanan berhasil! Total: %.2f\n", newOrder.totalPrice);
+                printf("Pemesanan berhasil! Total: %.2f\n", tot);
                 return;
             } 
 			else {
