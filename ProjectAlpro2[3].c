@@ -140,6 +140,7 @@ void deleteMenu(){
 // Function untuk mengorder makanan atau minuman
 void order(){
 	int i;
+	char x[2];
     if (menuCount == 0){
         printf("Tidak ada menu!\n");
         return;
@@ -147,6 +148,7 @@ void order(){
     struct Order newOrder; // Membuat structure untuk pesanan baru
     printf("Masukkan ID pesanan: ");
     scanf("%d", &newOrder.orderID);
+    rep:
     printf("Masukkan ID menu: ");
     scanf("%d", &newOrder.itemID);
     printf("Masukkan kuantitas menu: ");
@@ -161,9 +163,14 @@ void order(){
     for (i = 0; i < menuCount; i++){
         if (menu[i].id == newOrder.itemID){
             if (menu[i].stock >= newOrder.quantity){
-                newOrder.totalPrice = menu[i].price * newOrder.quantity;
+                newOrder.totalPrice += menu[i].price * newOrder.quantity;
                 menu[i].stock -= newOrder.quantity;
                 orders[orderCount++] = newOrder;
+                printf("Apakah Anda ingin memesan lagi (Y/T) : ");
+                scanf("%s", &x);
+                if (strcmp(x, "Y") == 0){
+                	goto rep;
+				}
                 printf("Pemesanan berhasil! Total: %.2f\n", newOrder.totalPrice);
                 return;
             } 
@@ -184,9 +191,9 @@ void displayOrders(){
         return;
     }
     printf("\nPesanan\n");
-    printf("Order ID\tItem ID\tQuantity\tTotal\tDate\n");
+    printf("Order ID\tItem ID\tQuantity\tTotal\t\tDate\n");
     for (i = 0; i < orderCount; i++){
-        printf("%d\t\t%d\t%d\t\t%.2f\t%s\n",
+        printf("%d\t\t%d\t%d\t\t%.0f\t%s\n",
                orders[i].orderID,
                orders[i].itemID,
                orders[i].quantity,
@@ -377,10 +384,9 @@ int main(){
     loadMenu();
     loadOrders();
     isAdmin = loginAsAdmin();
-    system("cls");
 	// Looping selama user belum memilih keluar
     while(1){
-        printf("\nSelamat datang\n");
+        printf("Selamat datang\n");
         if (isAdmin){ // Jika user adalah admin
             printf("1. Menampilkan menu\n");
             printf("2. Menambahkan menu baru\n");
@@ -393,15 +399,13 @@ int main(){
 		} 
 		else { // Jika user adalah customer
             printf("1. Menampilkan menu\n");
-            printf("2. Memesan menu\n"); 
+            printf("2. Memesan menu\n");
             printf("3. Mengurutkan menu berdasarkan harga\n");
             printf("4. Mengurutkan menu berdasarkan nama\n");
             printf("5. Keluar\n");
-
         }
         printf("Masukkan pilihanmu: ");
         scanf("%d", &choice);
-        system("cls");
 		// Condition untuk setiap pilihan
         switch (choice){
             case 1: // Menampilkan menu
