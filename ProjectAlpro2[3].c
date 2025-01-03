@@ -27,7 +27,7 @@ struct Item menu[MAXI];
 struct Order orders[MAXO];
 int menuCount = 0;
 int orderCount = 0;
-int tot = 0;
+float tot = 0.0;
 
 // Function untuk login
 int loginAsAdmin(){
